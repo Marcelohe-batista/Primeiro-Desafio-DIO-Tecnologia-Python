@@ -1,0 +1,69 @@
+# Sistema bancário que aceita 3 operações, depósito, saque e extrato. Deve aceitar apenas valores positivos,
+# limite de 3 saques diários, máximo de R$ 500,00 por saque.
+
+
+# Menu que aparecerá na tela para escolha das opções
+menu = """
+        Escolha a opção desejada:
+
+        [1] Depositar
+        [2] Sacar
+        [3] Extrato
+        [0] Sair
+        => """
+
+#Valores iniciais para cálculo das variáveis
+saldo = 0
+limite = 500
+extrato = ""
+numero_saques = 0
+LIMITE_SAQUES = 3
+
+# Loop para escolha das opções do sistema
+while True:
+    opcao = input(menu)
+
+    # Controle dos depósitos, adicionando no saldo e registrando no extrato.
+    if opcao == "1":
+      print("Depósito")
+      d=float(input("Digite o valor que deseja depositar "))
+      if d <= 0:
+          print("Valor inválido, deve ser um valor maior que zero")
+      else :
+          saldo += d
+          extrato = extrato + f"Depósito: R$ {d:.2f}\n"
+          print (f"Depósito de R$ {d:.2f} realisado com sucesso")
+
+    # Controle dos saques, subtraindo do saldo e registrando no extrato.
+    elif opcao == "2":
+      print("Saque")
+      s = float(input("Digite o valor que deseja sacar "))
+      if s> limite:
+          print ("O limite máximo de saque é R$500,00")    
+      elif s> saldo:
+          print("Saldo insuficiente")
+      elif s <= 0:
+        print(f"Você digitou R${s:.2f}. O valor deve ser maior que zero")    
+      else:
+        if numero_saques < LIMITE_SAQUES:
+          saldo -= s
+          numero_saques += 1
+          extrato = extrato + f"Saque: R$ {s:.2f}\n"
+          print (f"Saque de R$ {s:.2f} realisado com sucesso")
+        else:
+          print("Limite de saques diários atingido")
+
+    # Impressão do extrato e saldo
+    elif opcao == "3":
+      print ("Extrato")
+      print (extrato)
+      print (f"Saldo disponível:R$ {saldo:.2f}")
+     
+
+    # Pausa do programa
+    elif opcao == "0":
+      break
+
+    # Tratamento caso seja digitado um número fora do menu
+    else:
+      print("Opção inválida") 
