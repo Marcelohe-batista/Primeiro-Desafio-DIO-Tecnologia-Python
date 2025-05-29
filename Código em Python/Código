@@ -7,6 +7,7 @@ def menu ( ):
         [1] Depositar
         [2] Sacar
         [3] Extrato
+        [4] Cadastar Usuário
         [0] Sair
         => """
    return input(menu)
@@ -35,8 +36,6 @@ def sacar (* ,saldo, valor, extrato, limite,numero_saques,limite_saques):
               numero_saques += 1
               extrato = extrato + f"Saque: R$ {valor:.2f}\n"
               print (f"Saque de R$ {valor:.2f} realisado com sucesso")
-              print (f"numero_saques = {numero_saques}")
-              print (f"limite_saques = {limite_saques}")
           else:
               print("Limite de saques diários atingido")
 
@@ -47,8 +46,16 @@ def mostrar_extrato (saldo, /, *,extrato):
     print (f"Saldo disponível:R$ {saldo:.2f}")
     return extrato
    
-#def criar_usuario( ):
-#def criar_conta_corrente( ):
+def criar_usuario(usuario):
+    nome=str(input(f"Nome: "))
+    nascimento= str(input (f"Data de nascimento: "))
+    CPF = int(input (F" CPF (Apenas números): "))
+    endereco = str(input (f"Endereço: "))
+
+    novo_usuario = { "nome": nome, "data_nascimento":nascimento, "cpf": CPF, "endereço":endereco}
+    usuario.append(novo_usuario)
+    print (usuario)
+    return usuario
 
 def main ( ):
    saldo = 0
@@ -56,6 +63,7 @@ def main ( ):
    extrato = ""
    numero_saques = 0
    limite_saques = 3
+   usuario = [ ]
 
    while True:
       opcao = menu( )
@@ -80,6 +88,15 @@ def main ( ):
           print ("Extrato")
           mostrar_extrato (saldo, extrato=extrato)
          
+      elif opcao == "4":
+          print ("Criar usuário")
+          criar_usuario(usuario)
+
+      elif opcao == "5":
+          print ("Criar conta corrente")
+          numero_conta = len(contas)+1
+          conta = criar_conta (agencia, numero_conta, usuario)
+
       elif opcao == "0": 
          break
       
